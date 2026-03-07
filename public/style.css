@@ -1,0 +1,101 @@
+body{
+
+background:url("https://images.unsplash.com/photo-1507842217343-583bb7270b66") no-repeat center center/cover;
+
+height:100vh;
+font-family:'Segoe UI',sans-serif;
+
+}
+
+/* glass effect */
+
+.glass{
+
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+
+border-radius:15px;
+
+border:1px solid rgba(255,255,255,0.2);
+
+box-shadow:0 8px 32px rgba(0,0,0,0.25);
+
+color:white;
+
+}
+
+/* sidebar */
+
+.sidebar{
+
+position:fixed;
+left:0;
+top:0;
+
+width:230px;
+height:100%;
+
+background:rgba(0,0,0,0.6);
+
+padding:20px;
+
+backdrop-filter:blur(10px);
+
+}
+
+.sidebar h2{
+
+color:white;
+margin-bottom:30px;
+
+}
+
+.sidebar a{
+
+display:block;
+color:white;
+padding:10px;
+margin-bottom:10px;
+
+text-decoration:none;
+border-radius:6px;
+
+}
+
+.sidebar a:hover{
+
+background:rgba(255,255,255,0.2);
+
+}
+
+/* main area */
+
+.main{
+
+margin-left:250px;
+padding:40px;
+
+}
+
+/* dashboard cards */
+
+.dashboard-card{
+
+padding:30px;
+text-align:center;
+
+}
+
+/* buttons */
+
+.btn-lib{
+
+background:#ffb347;
+border:none;
+padding:10px 18px;
+
+border-radius:8px;
+font-weight:bold;
+
+}

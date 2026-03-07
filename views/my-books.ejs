@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>My Books</title>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<a href="/dashboard" class="btn btn-light mb-3">
+⬅ Dashboard
+</a>
+
+<div class="glass p-4">
+
+<h2 class="text-white mb-4">📚 My Books</h2>
+
+<table class="table table-dark table-hover">
+
+<tr>
+<th>Book</th>
+<th>Issue Date</th>
+<th>Due Date</th>
+<th>Return Date</th>
+<th>Status</th>
+</tr>
+
+<% if(books.length === 0){ %>
+
+<tr>
+<td colspan="5" class="text-center">
+No books history
+</td>
+</tr>
+
+<% } %>
+
+<% books.forEach(function(b){ %>
+
+<tr>
+
+<td><%= b.title %></td>
+<td><%= b.issue_date %></td>
+<td><%= b.due_date %></td>
+<td><%= b.return_date || '-' %></td>
+
+<td>
+
+<% if(b.status === 'issued'){ %>
+
+<span class="badge bg-success">Issued</span>
+
+<% } else { %>
+
+<span class="badge bg-danger">Returned</span>
+
+<% } %>
+
+</td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>

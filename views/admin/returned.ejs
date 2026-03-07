@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Returned Books</title>
+
+<link rel="stylesheet" href="/style.css">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+<a href="/admin" class="btn btn-light mb-3">⬅ Dashboard</a>
+
+<div class="glass p-4">
+
+<h2 class="text-white mb-4">📚 Returned Books</h2>
+
+
+<!-- SEARCH BOX -->
+
+<form method="GET" action="/returned" class="mb-3">
+
+<input type="text"
+name="search"
+placeholder="Search Roll No / Teacher ID"
+value="<%= search %>"
+class="form-control">
+
+</form>
+
+
+<table class="table table-dark table-hover">
+
+<tr>
+
+<th>User</th>
+<th>Login ID</th>
+<th>Book</th>
+<th>Issue Date</th>
+<th>Return Date</th>
+
+</tr>
+
+
+<% if(data.length === 0){ %>
+
+<tr>
+<td colspan="5" class="text-center">
+No returned books found
+</td>
+</tr>
+
+
+<% } %>
+<tr>
+<th>User</th>
+<th>Book</th>
+<th>Issue Date</th>
+<th>Return Date</th>
+<th>Late Days</th>
+<th>Fine (₹)</th>
+</tr>
+
+<% data.forEach(function(book){ %>
+
+<tr>
+
+<td><%= book.name %></td>
+<td><%= book.title %></td>
+<td><%= book.issue_date %></td>
+<td><%= book.return_date %></td>
+
+<td>
+<% if(book.late_days > 0){ %>
+<span class="text-danger"><%= book.late_days %></span>
+<% } else { %>
+0
+<% } %>
+</td>
+
+<td>
+<% if(book.fine > 0){ %>
+<span class="badge bg-danger">₹ <%= book.fine %></span>
+<% } else { %>
+₹ 0
+<% } %>
+</td>
+
+</tr>
+
+<% }) %>
+
+<% data.forEach(function(book){ %>
+
+<tr>
+
+<td><%= book.name %></td>
+
+<td><%= book.login_id %></td>
+
+<td><%= book.title %></td>
+
+<td><%= book.issue_date %></td>
+
+<td><%= book.return_date %></td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

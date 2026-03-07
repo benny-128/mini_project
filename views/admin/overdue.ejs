@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Overdue Books</title>
+
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<a href="/admin" class="btn btn-light mb-3">
+⬅ Dashboard
+</a>
+
+<div class="glass p-4">
+
+<h2 class="text-white mb-4">⏰ Overdue Books</h2>
+
+<table class="table table-dark table-hover">
+
+<tr>
+<th>User</th>
+<th>Book</th>
+<th>Issue Date</th>
+<th>Due Date</th>
+</tr>
+
+<% if(data.length === 0){ %>
+
+<tr>
+<td colspan="4" class="text-center">
+No overdue books
+</td>
+</tr>
+
+<% } %>
+
+<% data.forEach(function(book){ %>
+
+<tr>
+
+<td><%= book.name %></td>
+<td><%= book.title %></td>
+<td><%= book.issue_date %></td>
+<td style="color:red"><%= book.due_date %></td>
+
+</tr>
+
+<% }) %>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+</html>
