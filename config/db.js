@@ -8,10 +8,10 @@ database: process.env.MYSQLDATABASE,
 port: process.env.MYSQLPORT
 });
 
-connection.connect(function(err){
-if(err){
-console.log("Database connection failed:",err);
-}else{
+connection.connect((err) => {
+if (err) {
+console.log("Database connection failed:", err);
+} else {
 console.log("Railway MySQL Connected");
 }
 });
