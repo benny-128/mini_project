@@ -388,10 +388,16 @@ res.redirect('/requests');
 
 app.get('/issued',(req,res)=>{
 
-const search=req.query.search || "";
+const search = req.query.search;
 
-db.query(
-`SELECT users.name,users.login_id,
+if(!search){
+    return res.render("admin/issued",{data:[],search:""});
+}
+
+const sql = `
+SELECT issued_books.id,
+users.name,
+users.login_id,
 books.title,
 issued_books.issue_date,
 issued_books.due_date
@@ -399,9 +405,10 @@ FROM issued_books
 JOIN users ON users.id=issued_books.user_id
 JOIN books ON books.id=issued_books.book_id
 WHERE issued_books.status='issued'
-AND users.login_id LIKE ?`,
-[`%${search}%`],
-(err,data)=>{
+AND users.login_id LIKE ?
+`;
+
+db.query(sql,[`%${search}%`],(err,data)=>{
 
 res.render("admin/issued",{data,search});
 
@@ -529,6 +536,40 @@ JOIN books ON books.id=issued_books.book_id`,
 (err,data)=>{
 
 res.render("admin/return_requests",{returns:data});
+
+});
+
+});
+
+
+app.get('/return-book/:id',(req,res)=>{
+
+const id = req.params.id;
+
+db.query(
+"SELECT * FROM issued_books WHERE id=?",
+[id],
+(err,data)=>{
+
+if(data.length === 0){
+    return res.redirect('/issued');
+}
+
+const book_id = data[0].book_id;
+
+/* mark returned */
+db.query(
+"UPDATE issued_books SET status='returned', return_date=CURDATE() WHERE id=?",
+[id]
+);
+
+/* increase quantity */
+db.query(
+"UPDATE books SET available_quantity = available_quantity + 1 WHERE id=?",
+[book_id]
+);
+
+res.redirect('/issued');
 
 });
 

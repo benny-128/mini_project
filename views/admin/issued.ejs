@@ -26,6 +26,7 @@
 <th>Issue Date</th>
 <th>Due Date</th>
 <th>Status</th>
+<th>Action</th>
 </tr>
 <form method="GET" action="/issued" class="mb-3">
 
@@ -45,6 +46,11 @@ class="form-control">
 <td><%= book.title %></td>
 <td><%= book.issue_date %></td>
 <td><%= book.due_date %></td>
+<td>
+    <a herf="/return-book/<%= row.id %>" class="btn btn-danger">
+        Return
+    </a>
+</td>
 <td>
 
 <% if(book.status === 'issued'){ %>
