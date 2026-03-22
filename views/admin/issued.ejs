@@ -2,76 +2,96 @@
 <html>
 
 <head>
+    <title>Issued Books</title>
 
-<title>Issued Books</title>
-
-<link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="glass p-4 mt-5">
+    <!-- Dashboard Button -->
+    <a href="/admin" class="btn btn-light mt-4">🏠 Dashboard</a>
 
-<h2 class="text-white mb-4">📖 Issued Books</h2>
+    <div class="glass p-4 mt-4">
 
-<table class="table table-dark table-hover">
+        <h2 class="text-white mb-4">📖 Issued Books</h2>
 
-<tr>
-<th>User</th>
-<th>Book</th>
-<th>Issue Date</th>
-<th>Due Date</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-<form method="GET" action="/issued" class="mb-3">
+        <!-- 🔍 Search Box -->
+        <form method="GET" action="/issued" class="mb-3">
+            <input type="text"
+                   name="search"
+                   placeholder="Search Roll No / Teacher ID"
+                   value="<%= search %>"
+                   class="form-control">
+        </form>
 
-<input type="text" 
-name="search" 
-placeholder="Search Roll No / Teacher ID"
-value="<%= search %>"
-class="form-control">
+        <table class="table table-dark table-hover text-center">
 
-</form>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                    <th>Issue Date</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
 
-<% data.forEach(function(book){ %>
+            <tbody>
 
-<tr>
+            <% if(data.length === 0){ %>
+                <tr>
+                    <td colspan="6">No records found</td>
+                </tr>
+            <% } %>
 
-<td><%= book.name %></td>
-<td><%= book.title %></td>
-<td><%= book.issue_date %></td>
-<td><%= book.due_date %></td>
-<td>
-    <a herf="/return-book/<%= row.id %>" class="btn btn-danger">
-        Return
-    </a>
-</td>
-<td>
+            <% data.forEach(function(book){ %>
 
-<% if(book.status === 'issued'){ %>
+                <tr>
 
-<span class="badge bg-success">Issued</span>
+                    <td><%= book.name %></td>
 
-<% } else { %>
+                    <td><%= book.title %></td>
 
-<span class="badge bg-danger">Returned</span>
+                    <td><%= new Date(book.issue_date).toDateString() %></td>
 
-<% } %>
+                    <td><%= new Date(book.due_date).toDateString() %></td>
 
-</td>
+                    <!-- STATUS -->
+                    <td>
+                        <% if(book.status === 'issued'){ %>
+                            <span class="badge bg-success">Issued</span>
+                        <% } else { %>
+                            <span class="badge bg-danger">Returned</span>
+                        <% } %>
+                    </td>
 
-</tr>
+                    <!-- ACTION -->
+                    <td>
+                        <% if(book.status === 'issued'){ %>
+                            <a href="/return-book/<%= book.id %>"
+                               onclick="return confirm('Return this book?')"
+                               class="btn btn-danger btn-sm">
+                               Return
+                            </a>
+                        <% } else { %>
+                            <span class="text-muted">Completed</span>
+                        <% } %>
+                    </td>
 
-<% }) %>
+                </tr>
 
-</table>
+            <% }) %>
 
-</div>
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
